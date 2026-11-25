@@ -5,39 +5,39 @@ import { categories } from './App.jsx'
 import { serviceSlug } from './utils/serviceSlug.js'
 
 const serviceHeroImages = {
-  'Wi-Fi Installation': 'photo-1544197150-b99a580bb7a8',
-  'Router & Switch Configuration': 'photo-1551703599-6b3e8379aa8e',
-  'Server Installation': 'photo-1518770660439-4636190af475',
-  'Office Networking Solutions': 'photo-1558618666-fcd25c85cd64',
-  'Networking Solutions': 'photo-1451187580459-43490279c0fa',
-  'Cyber Security Solutions': 'photo-1550751827-4bd374c3f58b',
-  'Antivirus & Malware Protection': 'photo-1563013544-824ae1b704d3',
-  'Firewall Configuration': 'photo-1555949963-ff9fe0c870eb',
-  'Data Backup & Recovery': 'photo-1516321318423-f06f85e504b3',
-  'Remote IT Support': 'photo-1522071820081-009f0129c71c',
-  'Computer Troubleshooting': 'photo-1581091226825-a6a2a5aee158',
-  'Cyber Security Guidance': 'photo-1510511459019-5dda7724fd87',
-  'Corporate IT Support': 'photo-1497366216548-37526070297c',
-  'Annual Maintenance Contract (AMC)': 'photo-1486406146926-c627a92ad1ab',
-  'IT Infrastructure Setup': 'photo-1519389950473-47ba0277781c',
-  'Office Computer Setup': 'photo-1498050108023-c5249f4df085',
-  'IT Support & Maintenance': 'photo-1504384308090-c894fdcc538d',
-  'Business IT Consulting': 'photo-1521737711867-e3b97375f902',
-  'Laptop Rental': 'photo-1517336714731-489689fd1ca8',
-  'Desktop Rental': 'photo-1587831990711-23ca6441447b',
-  'Laptop Sale & Purchase': 'photo-1496181133206-80ce9b88a853',
-  'Desktop Sale & Purchase': 'photo-1593642532973-d31b6557fa68',
-  'IT Accessories Supply': 'photo-1527430253228-e93688616381',
-  'All IT Accessories': 'photo-1523206489230-c012c64f1e8b',
-  'Computer Peripherals': 'photo-1588872657578-7efd1f1555ed',
-  'Hardware Solutions': 'photo-1591405351990-4726e331f141',
+  'Wi-Fi Installation': '3182812',
+  'Router & Switch Configuration': '3184325',
+  'Server Installation': '3184360',
+  'Office Networking Solutions': '3183150',
+  'Networking Solutions': '3184291',
+  'Cyber Security Solutions': '3184339',
+  'Antivirus & Malware Protection': '3184418',
+  'Firewall Configuration': '3182781',
+  'Data Backup & Recovery': '3182784',
+  'Remote IT Support': '3184430',
+  'Computer Troubleshooting': '3184435',
+  'Cyber Security Guidance': '1181244',
+  'Corporate IT Support': '1181271',
+  'Annual Maintenance Contract (AMC)': '1181306',
+  'IT Infrastructure Setup': '1181319',
+  'Office Computer Setup': '1181345',
+  'IT Support & Maintenance': '1181370',
+  'Business IT Consulting': '1181396',
+  'Laptop Rental': '1181423',
+  'Desktop Rental': '1181467',
+  'Laptop Sale & Purchase': '1181472',
+  'Desktop Sale & Purchase': '1181498',
+  'IT Accessories Supply': '1181500',
+  'All IT Accessories': '1181548',
+  'Computer Peripherals': '1181619',
+  'Hardware Solutions': '3182820',
 }
 const categoryFallbackImages = {
-  'Networking & IT Infrastructure': 'photo-1558494949-ef010cbdcc31',
-  'Cyber Security & IT Support': 'photo-1563013544-824ae1b704d3',
-  'Complete IT Solutions & AMC': 'photo-1497366754035-f200968a6e72',
-  'Laptop & Desktop Solutions': 'photo-1496181133206-80ce9b88a853',
-  'IT Hardware & Accessories': 'photo-1519389950473-47ba0277781c',
+  'Networking & IT Infrastructure': '3184438',
+  'Cyber Security & IT Support': '3182773',
+  'Complete IT Solutions & AMC': '1181639',
+  'Laptop & Desktop Solutions': '3182820',
+  'IT Hardware & Accessories': '3184430',
 }
 
 const copy = {
@@ -75,9 +75,9 @@ const faqs = [
   ['Do you provide support after setup?', 'Support and maintenance options are available. Share your ongoing requirements when you enquire so the team can discuss them with you.'],
 ]
 
-function Header() {
+export function Header() {
   const [open, setOpen] = useState(false)
-  return <><div className="topline"><div className="wrap topline-inner"><span><Sparkles size={13}/> Your technology partner</span><a href="/#contact">Talk to our team <ArrowUpRight size={13}/></a></div></div><header className="site-header"><div className="wrap header-inner"><a className="brand" href="/" aria-label="Integrated IT Solution home"><span className="brand-icon"><Cable size={21}/></span><span><b>INTEGRATED</b><small>IT SOLUTION</small></span></a><nav className={open?'nav-open':''} aria-label="Main navigation"><a href="/#about">About</a><a href="/#services">Services</a><a href="/#industries">Industries</a><a href="/#contact">Contact</a><a className="mobile-quote" href="/#quote">Get a quote <ArrowRight size={15}/></a></nav><a href="/#quote" className="button button-dark header-cta">Get a quote <ArrowUpRight size={15}/></a><button className="menu-toggle" onClick={()=>setOpen(!open)} aria-label={open?'Close menu':'Open menu'}>{open?<X/>:<Menu/>}</button></div></header></>
+  return <><div className="topline"><div className="wrap topline-inner"><span><Sparkles size={13}/> Your technology partner</span><a href="/contact">Talk to our team <ArrowUpRight size={13}/></a></div></div><header className="site-header"><div className="wrap header-inner"><a className="brand" href="/" aria-label="Integrated IT Solution home"><span className="brand-icon"><Cable size={21}/></span><span><b>INTEGRATED</b><small>IT SOLUTION</small></span></a><nav className={open?'nav-open':''} aria-label="Main navigation"><a href="/about">About</a><a href="/services">Services</a><a href="/industries">Industries</a><a href="/contact">Contact</a><a className="mobile-quote" href="/contact#form">Get a quote <ArrowRight size={15}/></a></nav><a href="/contact#form" className="button button-dark header-cta">Get a quote <ArrowUpRight size={15}/></a><button className="menu-toggle" onClick={()=>setOpen(!open)} aria-label={open?'Close menu':'Open menu'}>{open?<X/>:<Menu/>}</button></div></header></>
 }
 
 export default function ServicePage() {
@@ -108,7 +108,7 @@ export default function ServicePage() {
   const Icon=current.group.icon||MonitorCog
   const related=current.group.services.filter(name=>name!==current.name).slice(0,4)
   const photo=serviceHeroImages[current.name]||categoryFallbackImages[current.category||current.group.title]||categoryFallbackImages['Complete IT Solutions & AMC']
-  return <><Header/><motion.main className="service-detail-page" initial={{opacity:0}} animate={{opacity:1}} transition={{duration:.35}}><section className="detail-hero"><motion.div className="detail-hero-image" initial={{scale:1.06,x:35}} animate={{scale:1,x:0}} transition={{duration:1,ease:[.2,.78,.22,1]}} style={{backgroundImage:`url(https://images.unsplash.com/${photo}?auto=format&fit=crop&w=1700&q=85)`}}/><div className="detail-hero-shade"/><motion.div className="wrap detail-hero-content" initial="hidden" animate="visible" variants={{hidden:{opacity:0,x:-28},visible:{opacity:1,x:0,transition:{duration:.55,staggerChildren:.08,ease:[.2,.78,.22,1]}}}}><div className="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/#services">Services</a><span>/</span><span>{current.name}</span></div><motion.div className="detail-category" variants={{hidden:{opacity:0,x:-16},visible:{opacity:1,x:0}}}><Icon size={15}/>{current.category||current.group.title}</motion.div><motion.h1 variants={{hidden:{opacity:0,x:-22},visible:{opacity:1,x:0}}}>{details[0]}</motion.h1><motion.p variants={{hidden:{opacity:0,x:-16},visible:{opacity:1,x:0}}}>{details[1]}</motion.p><motion.div className="detail-hero-actions" variants={{hidden:{opacity:0,x:-13},visible:{opacity:1,x:0}}}><a className="button button-primary" href="/#quote">Request a quote <ArrowRight size={16}/></a><a className="detail-secondary-link" href="/#contact">Talk to our team <ArrowUpRight size={15}/></a></motion.div><motion.div className="detail-trust" variants={{hidden:{opacity:0,x:-10},visible:{opacity:1,x:0}}}><span><Check size={14}/> Practical recommendations</span><span><Check size={14}/> Solutions for your requirements</span></motion.div></motion.div></section>
+  return <><Header/><motion.main className="service-detail-page" initial={{opacity:0}} animate={{opacity:1}} transition={{duration:.35}}><section className="detail-hero"><motion.div className="detail-hero-image" initial={{scale:1.06,x:35}} animate={{scale:1,x:0}} transition={{duration:1,ease:[.2,.78,.22,1]}} style={{backgroundImage:`url(https://images.pexels.com/photos/${photo}/pexels-photo-${photo}.jpeg?auto=compress&cs=tinysrgb&w=1700)`}}/><div className="detail-hero-shade"/><motion.div className="wrap detail-hero-content" initial="hidden" animate="visible" variants={{hidden:{opacity:0,x:-28},visible:{opacity:1,x:0,transition:{duration:.55,staggerChildren:.08,ease:[.2,.78,.22,1]}}}}><div className="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/services">Services</a><span>/</span><span>{current.name}</span></div><motion.div className="detail-category" variants={{hidden:{opacity:0,x:-16},visible:{opacity:1,x:0}}}><Icon size={15}/>{current.category||current.group.title}</motion.div><motion.h1 variants={{hidden:{opacity:0,x:-22},visible:{opacity:1,x:0}}}>{details[0]}</motion.h1><motion.p variants={{hidden:{opacity:0,x:-16},visible:{opacity:1,x:0}}}>{details[1]}</motion.p><motion.div className="detail-hero-actions" variants={{hidden:{opacity:0,x:-13},visible:{opacity:1,x:0}}}><a className="button button-primary" href="/contact">Request a quote <ArrowRight size={16}/></a><a className="detail-secondary-link" href="/contact">Talk to our team <ArrowUpRight size={15}/></a></motion.div><motion.div className="detail-trust" variants={{hidden:{opacity:0,x:-10},visible:{opacity:1,x:0}}}><span><Check size={14}/> Practical recommendations</span><span><Check size={14}/> Solutions for your requirements</span></motion.div></motion.div></section>
     <section className="detail-intro"><div className="wrap detail-intro-grid"><div><span className="eyebrow">{current.name.toUpperCase()}</span><h2>Technology support,<br/><em>connected to your goals.</em></h2></div><div><p>{details[1]} We start by understanding your environment and priorities, then discuss an approach that fits your team.</p><p>Every organization has different requirements. Share the context, timing and scale of your need so the next steps are useful and clear.</p><a className="text-link" href="/#quote">Tell us what you need <ArrowRight size={15}/></a></div></div></section>
     <section className="detail-process"><div className="wrap"><motion.div className="detail-section-heading" initial={{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.4}} transition={{duration:.45}}><span className="eyebrow">A CLEAR WAY FORWARD</span><h2>From first conversation<br/><em>to the next step.</em></h2><p>Start with the requirements that matter to your team.</p></motion.div><div className="detail-feature-grid">{details[2].map((item,index)=><motion.article className="detail-feature" key={item} initial={{opacity:0,x:index%2===0?-34:34,y:8}} whileInView={{opacity:1,x:0,y:0}} viewport={{once:true,amount:.3}} transition={{duration:.56,delay:index*.1,ease:[.2,.78,.22,1]}} whileHover={{y:-4}}><span>0{index+1}</span><h3>{item}</h3><p>{index===0?'We learn about your environment, goals and any constraints that should guide the solution.':index===1?'We outline relevant options and clarify the scope based on the information you share.':'We agree what information or action will help move your request forward.'}</p></motion.article>)}</div></div></section>
     <section className="detail-quote-band"><div className="wrap detail-quote-inner"><div><span className="eyebrow eyebrow-light">HAVE A REQUIREMENT?</span><h2>Let’s discuss {current.name.toLowerCase()}.</h2><p>Tell us what your team needs. We’ll help you work through the next step.</p></div><a className="button button-primary" href="/#quote">Request a quote <ArrowRight size={16}/></a></div></section>
