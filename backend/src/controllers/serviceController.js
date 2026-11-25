@@ -6,6 +6,7 @@ export const listServices = asyncHandler(async (req, res) => {
   const filter = req.user ? {} : { active: true }
   res.json({ items: await Service.find(filter).sort({ sortOrder: 1, name: 1 }).lean() })
 })
+export const listAllServices = asyncHandler(async (req, res) => res.json({ items: await Service.find().sort({ sortOrder: 1, name: 1 }).lean() }))
 export const getService = asyncHandler(async (req, res) => {
   const item = await Service.findOne({ slug: req.params.slug, ...(req.user ? {} : { active: true }) }).lean()
   if (!item) return res.status(404).json({ message: 'Service not found.' })

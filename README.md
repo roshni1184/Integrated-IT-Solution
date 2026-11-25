@@ -11,7 +11,7 @@ Integrated IT Solution is a MERN website for networking, cybersecurity, IT infra
 - **Phase 5 — Verification:** validate forms, API permissions, admin actions, and responsive behavior.
 - **Phase 6 — Deployment:** prepare Vercel, Render, and MongoDB Atlas configuration.
 
-Phases 1 and 2 are implemented. Contact details and testimonials are intentionally omitted because verified company details were not supplied. Enquiry forms persist submissions when the API and database are configured.
+Phases 1–4 are implemented: the public site, API, protected admin workspace, and frontend/API integration. Contact details and testimonials are intentionally omitted because verified company details were not supplied. Enquiry forms persist submissions when the API and database are configured.
 
 ## Run the frontend
 
@@ -35,6 +35,8 @@ npm run dev
 ```
 
 The API is available at `http://localhost:5000/api`. Set `VITE_API_URL=http://localhost:5000/api` in `frontend/.env` to connect the public enquiry forms.
+
+Open `/admin` on the frontend for the protected admin workspace. Sign in with the administrator created by the seed command. The dashboard includes lead statuses, search, detail notes, follow-up dates, CSV export, analytics, customer and service request lists, and service catalog management. The API JWT is kept in tab-scoped session storage.
 
 Seed the service catalog with `npm run seed:services`. Create the first admin with environment variables (never a production default password):
 

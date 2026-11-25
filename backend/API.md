@@ -60,6 +60,7 @@ Returns the authenticated user's minimal profile.
 - `GET /dashboard/service-requests`: paginated requests with optional `status` and `requestType` filters.
 - `PATCH /dashboard/service-requests/:id`: change `status` to `new`, `reviewing`, `fulfilled`, or `cancelled`.
 - `POST /services`, `PATCH /services/:id`, `DELETE /services/:id`: admin-only service catalog management.
+- `GET /services/manage`: admin-only complete service list, including inactive records.
 
 ## Security and operations
 

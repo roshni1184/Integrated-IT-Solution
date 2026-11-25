@@ -5,7 +5,7 @@ import { env } from '../config/env.js'
 import { asyncHandler } from '../utils/asyncHandler.js'
 
 export const login = asyncHandler(async (req, res) => {
-  const user = await User.findOne({ email: req.body.email, active: true }).select('+passwordHash')
+  const user = await User.findOne({ email: req.body.email.toLowerCase(), active: true }).select('+passwordHash')
   const valid = user && await bcrypt.compare(req.body.password, user.passwordHash)
   if (!valid) return res.status(401).json({ message: 'Email or password is incorrect.' })
   user.lastLoginAt = new Date()
