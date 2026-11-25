@@ -45,3 +45,7 @@
 .public-service-card:hover>svg{transform:translate(2px,-2px);color:#1769ff}
 .service-empty{margin-top:18px;padding:22px;border:1px dashed #d6deea;color:#758197;font-size:11px;text-align:center}
 @media(max-width:740px){.public-service-grid{grid-template-columns:1fr;gap:8px}.public-service-card{min-height:68px;padding:11px 12px}.public-service-card b{font-size:11px}}
+.wrap{width:min(1160px,calc(100% - 88px))}
+@media(max-width:1000px){.wrap{width:min(calc(100% - 64px),880px)}}
+@media(max-width:740px){.wrap{width:calc(100% - 56px)}}
+@media(max-width:390px){.wrap{width:calc(100% - 40px)}}
