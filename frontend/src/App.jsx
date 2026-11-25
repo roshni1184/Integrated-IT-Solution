@@ -26,7 +26,7 @@ const faqs = [
 ]
 
 function Brand({ light = false }) { return <a className={`brand ${light ? 'brand-light' : ''}`} href="#home" aria-label="Integrated IT Solution home"><span className="brand-icon"><Cable size={21} /></span><span><b>INTEGRATED</b><small>IT SOLUTION</small></span></a> }
-function Reveal({ children, className = '', delay = 0 }) { return <motion.div className={className} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: .55, delay }}>{children}</motion.div> }
+function Reveal({ children, className = '', delay = 0 }) { return <motion.div className={className} initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }} viewport={{ once: true, margin: '-55px' }} transition={{ duration: .68, delay, ease: [.22, 1, .36, 1] }}>{children}</motion.div> }
 function SectionTitle({ eyebrow, title, text, centered = false }) { return <div className={`section-title ${centered ? 'center' : ''}`}><span className="eyebrow">{eyebrow}</span><h2>{title}</h2>{text && <p>{text}</p>}</div> }
 
 function EnquiryForm({ quote = false, compact = false, serviceOptions = categories.flatMap(c => c.services) }) {
