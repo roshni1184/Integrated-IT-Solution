@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
+    "test": "node --test",
     "seed:admin": "node scripts/seedAdmin.js",
     "seed:services": "node scripts/seedServices.js"
   },

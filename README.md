@@ -11,7 +11,7 @@ Integrated IT Solution is a MERN website for networking, cybersecurity, IT infra
 - **Phase 5 — Verification:** validate forms, API permissions, admin actions, and responsive behavior.
 - **Phase 6 — Deployment:** prepare Vercel, Render, and MongoDB Atlas configuration.
 
-Phases 1–4 are implemented: the public site, API, protected admin workspace, and frontend/API integration. Contact details and testimonials are intentionally omitted because verified company details were not supplied. Enquiry forms persist submissions when the API and database are configured.
+Phases 1–6 are implemented as code and deployment preparation: the public site, API, protected admin workspace, frontend/API integration, API boundary checks, and Vercel/Render configuration templates. Contact details and testimonials are intentionally omitted because verified company details were not supplied. Enquiry forms persist submissions when the API and database are configured. No live production deployment has been performed.
 
 ## Run the frontend
 
@@ -48,6 +48,10 @@ npm run seed:admin
 ```
 
 The API does not expose public admin registration. Configure SMTP variables in `backend/.env` to receive new enquiry notifications; notification failure does not discard a saved enquiry.
+
+## Verification and deployment preparation
+
+Run the API boundary checks with `cd backend; npm test`. The checks cover health, request validation, protected routes, and the absence of public registration without requiring a running MongoDB instance. To deploy, set the frontend Vercel root to `frontend` and configure `VITE_API_URL` with the deployed API URL. The repository includes `frontend/vercel.json` for SPA paths such as `/admin`. Use `render.yaml` for the Render API service and set its unsynchronized environment variables in Render. Create a MongoDB Atlas database, set `MONGODB_URI`, allow the Render service to connect, set `CLIENT_ORIGIN` to the exact Vercel origin, seed services and the first admin, and configure SMTP only if email notifications are needed. Deployment remains unverified until these credentials and host settings are supplied and deployed.
 
 ## API overview
 
