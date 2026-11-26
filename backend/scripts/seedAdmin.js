@@ -1,7 +1,7 @@
-import 'dotenv/config'
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import User from '../src/models/User.js'
+import { connectDatabase } from '../src/config/database.js'
 
 const { MONGODB_URI, ADMIN_NAME, ADMIN_EMAIL, ADMIN_PASSWORD } = process.env
 if (!MONGODB_URI || !ADMIN_NAME || !ADMIN_EMAIL || !ADMIN_PASSWORD) {
@@ -13,7 +13,7 @@ if (ADMIN_PASSWORD.length < 14) {
   process.exit(1)
 }
 try {
-  await mongoose.connect(MONGODB_URI)
+  await connectDatabase()
   const email = ADMIN_EMAIL.trim().toLowerCase()
   const existing = await User.findOne({ email })
   if (existing) {
