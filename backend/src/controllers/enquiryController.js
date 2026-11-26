@@ -32,9 +32,8 @@ function buildEnquiryFilter(query) {
   return filter
 }
 export const listEnquiries = asyncHandler(async (req, res) => {
-  const page = Math.max(1, Number.parseInt(req.query.page, 10) || 1)
-  const limit = Math.min(100, Math.max(1, Number.parseInt(req.query.limit, 10) || 20))
-  const filter = buildEnquiryFilter(req.query)
+  const { page, limit } = res.locals.query
+  const filter = buildEnquiryFilter(res.locals.query)
   const [items, total] = await Promise.all([Enquiry.find(filter).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit).populate('assignedTo', 'name email').lean(), Enquiry.countDocuments(filter)])
   res.json({ items, pagination: { page, limit, total, pages: Math.ceil(total / limit) } })
 })
@@ -57,7 +56,7 @@ export const addEnquiryNote = asyncHandler(async (req, res) => {
   res.status(201).json({ item })
 })
 export const exportEnquiries = asyncHandler(async (req, res) => {
-  const items = await Enquiry.find(buildEnquiryFilter(req.query)).sort({ createdAt: -1 }).limit(10000).lean()
+  const items = await Enquiry.find(buildEnquiryFilter(res.locals.query)).sort({ createdAt: -1 }).limit(10000).lean()
   const fields = ['createdAt', 'name', 'email', 'phone', 'company', 'service', 'enquiryType', 'status', 'deviceType', 'quantity', 'preference', 'message']
   const escape = (value) => {
     const text = String(value ?? '')

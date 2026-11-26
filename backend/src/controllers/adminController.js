@@ -8,16 +8,15 @@ export const createManualEnquiry = asyncHandler(async (req, res) => {
   res.status(201).json({ item })
 })
 export const listCustomers = asyncHandler(async (req, res) => {
-  const page = Math.max(1, Number.parseInt(req.query.page, 10) || 1); const limit = Math.min(100, Math.max(1, Number.parseInt(req.query.limit, 10) || 20))
-  const search = req.query.search?.trim()
+  const { page, limit, search } = res.locals.query
   const filter = search ? { $or: ['name', 'email', 'phone', 'company'].map((field) => ({ [field]: { $regex: search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' } })) } : {}
   const [items, total] = await Promise.all([Customer.find(filter).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit).lean(), Customer.countDocuments(filter)])
   res.json({ items, pagination: { page, limit, total, pages: Math.ceil(total / limit) } })
 })
 export const createCustomer = asyncHandler(async (req, res) => res.status(201).json({ item: await Customer.create(req.body) }))
 export const listServiceRequests = asyncHandler(async (req, res) => {
-  const page = Math.max(1, Number.parseInt(req.query.page, 10) || 1); const limit = Math.min(100, Math.max(1, Number.parseInt(req.query.limit, 10) || 20))
-  const filter = {}; if (req.query.status) filter.status = req.query.status; if (req.query.requestType) filter.requestType = req.query.requestType
+  const { page, limit, status, requestType } = res.locals.query
+  const filter = {}; if (status) filter.status = status; if (requestType) filter.requestType = requestType
   const [items, total] = await Promise.all([ServiceRequest.find(filter).populate('enquiry').populate('customer').sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit).lean(), ServiceRequest.countDocuments(filter)])
   res.json({ items, pagination: { page, limit, total, pages: Math.ceil(total / limit) } })
 })

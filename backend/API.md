@@ -45,7 +45,7 @@ Returns the authenticated user's minimal profile.
 
 ## Protected enquiry endpoints
 
-- `GET /enquiries`: pagination (`page`, `limit`, max 100), search (`search`), `status`, `service`, `enquiryType`, and ISO date filters `from` / `to`.
+- `GET /enquiries`: pagination (`page` 1–10,000; `limit` 1–100), search (`search`, max 120 characters), `status`, `service`, `enquiryType`, and ISO date filters `from` / `to`. Unknown or invalid query parameters return `400`.
 - `GET /enquiries/export.csv`: exports up to 10,000 matching rows with the same filters.
 - `POST /enquiries/manual`: admin-only; accepts the public enquiry body.
 - `GET /enquiries/:id`: full enquiry and notes.
@@ -55,9 +55,9 @@ Returns the authenticated user's minimal profile.
 ## Admin endpoints
 
 - `GET /dashboard/analytics`: status totals, totals by service, daily enquiry counts, and monthly counts.
-- `GET /dashboard/customers`: paginated list with optional `search`.
+- `GET /dashboard/customers`: paginated list with optional `search` (max 120 characters); invalid or unknown query parameters return `400`.
 - `POST /dashboard/customers`: create a customer with `name` and optional `email`, `phone`, `company`, `notes`.
-- `GET /dashboard/service-requests`: paginated requests with optional `status` and `requestType` filters.
+- `GET /dashboard/service-requests`: paginated requests with optional `status` and `requestType` filters; invalid or unknown query parameters return `400`.
 - `PATCH /dashboard/service-requests/:id`: change `status` to `new`, `reviewing`, `fulfilled`, or `cancelled`.
 - `POST /services`, `PATCH /services/:id`, `DELETE /services/:id`: admin-only service catalog management.
 - `GET /services/manage`: admin-only complete service list, including inactive records.
