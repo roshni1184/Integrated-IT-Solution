@@ -86,7 +86,7 @@ function App() {
   }, [])
   const serviceOptions = serviceCatalog.flatMap(category => category.services)
   const filteredCatalog = serviceCatalog.map(category => ({ ...category, services: category.services.filter(service => service.toLowerCase().includes(serviceSearch.trim().toLowerCase())) })).filter(category => category.services.length && (activeServiceFilter === 'All services' || category.title === activeServiceFilter))
-  const nav = [['About', '/about'], ['Services', '/services'], ['Industries', '/industries'], ['Contact', '/contact']]
+  const nav = [['Home', '/'], ['About', '/about'], ['Services', '/services'], ['Industries', '/industries'], ['Contact', '/contact']]
   return <>
     <div className="topline"><div className="wrap topline-inner"><span><Sparkles size={13} /> Technology that moves your business forward</span><a href="#contact">Talk to our team <ArrowUpRight size={13} /></a></div></div>
     <header className="site-header"><div className="wrap header-inner"><Brand /><nav className={menuOpen ? 'nav-open' : ''} aria-label="Main navigation">{nav.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}<a className="mobile-quote" href="#quote" onClick={() => setMenuOpen(false)}>Get a quote <ArrowRight size={15} /></a></nav><a href="#quote" className="button button-dark header-cta">Get a quote <ArrowUpRight size={15} /></a><button className="menu-toggle" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button></div></header>
