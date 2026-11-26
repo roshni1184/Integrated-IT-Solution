@@ -64,4 +64,4 @@ Returns the authenticated user's minimal profile.
 
 ## Security and operations
 
-Helmet security headers, origin allowlisting (`CLIENT_ORIGIN`, comma-separated), JSON size limits, request/login/enquiry rate limits, Zod input validation, bcrypt password hashing, role checks, and generic server errors are enabled. Set `trust proxy` correctly when deploying behind a proxy. MongoDB and SMTP credentials belong only in backend environment variables.
+Helmet security headers, origin allowlisting (`CLIENT_ORIGIN`, comma-separated), JSON size limits, request/login/enquiry rate limits, Zod input validation, bcrypt password hashing, role checks, and generic server errors are enabled. The stricter enquiry limit applies to public submissions; authenticated admin enquiry reads and updates use the general API limit. CSV exports neutralize spreadsheet formula prefixes in user supplied fields. Set `trust proxy` correctly when deploying behind a proxy. MongoDB and SMTP credentials belong only in backend environment variables.

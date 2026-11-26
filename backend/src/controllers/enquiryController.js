@@ -55,7 +55,11 @@ export const addEnquiryNote = asyncHandler(async (req, res) => {
 export const exportEnquiries = asyncHandler(async (req, res) => {
   const items = await Enquiry.find(buildEnquiryFilter(req.query)).sort({ createdAt: -1 }).limit(10000).lean()
   const fields = ['createdAt', 'name', 'email', 'phone', 'company', 'service', 'enquiryType', 'status', 'deviceType', 'quantity', 'preference', 'message']
-  const escape = (value) => `"${String(value ?? '').replaceAll('"', '""')}"`
+  const escape = (value) => {
+    const text = String(value ?? '')
+    const safe = /^[\u0000-\u0020]*[=+\-@]/.test(text) ? `'${text}` : text
+    return `"${safe.replaceAll('"', '""')}"`
+  }
   const csv = [fields.join(','), ...items.map((item) => fields.map((field) => escape(field === 'createdAt' ? item[field]?.toISOString() : item[field])).join(','))].join('\r\n')
   res.type('text/csv').attachment('enquiries.csv').send(csv)
 })
