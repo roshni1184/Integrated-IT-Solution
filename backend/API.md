@@ -49,7 +49,7 @@ Returns the authenticated user's minimal profile.
 - `GET /enquiries/export.csv`: exports up to 10,000 matching rows with the same filters.
 - `POST /enquiries/manual`: admin-only; accepts the public enquiry body.
 - `GET /enquiries/:id`: full enquiry and notes.
-- `PATCH /enquiries/:id`: update `status`, `followUpAt` (ISO date or null), and/or `assignedTo` (user ID or null).
+- `PATCH /enquiries/:id`: update `status`, `followUpAt` (ISO date or null), and/or `assignedTo` (active user ID or null). Assignments to missing or inactive users are rejected.
 - `POST /enquiries/:id/notes`: `{ "text": "Followed up by email" }`.
 
 ## Admin endpoints

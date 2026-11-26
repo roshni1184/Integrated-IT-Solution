@@ -9,6 +9,6 @@ function getTransporter() {
 export async function notifyNewEnquiry(enquiry) {
   const mailer = getTransporter()
   if (!mailer || !env.ENQUIRY_NOTIFICATION_EMAIL) return false
-  await mailer.sendMail({ from: env.MAIL_FROM, to: env.ENQUIRY_NOTIFICATION_EMAIL, replyTo: enquiry.email, subject: `New ${enquiry.enquiryType} enquiry: ${enquiry.service}`, text: [`Name: ${enquiry.name}`, `Email: ${enquiry.email}`, `Phone: ${enquiry.phone}`, `Company: ${enquiry.company || 'Not provided'}`, `Service: ${enquiry.service}`, `Message: ${enquiry.message}`].join('\n') })
+  await mailer.sendMail({ from: env.MAIL_FROM, to: env.ENQUIRY_NOTIFICATION_EMAIL, replyTo: enquiry.email, subject: `New ${enquiry.enquiryType} enquiry: ${enquiry.service}`, text: [`Name: ${enquiry.name}`, `Email: ${enquiry.email}`, `Phone: ${enquiry.phone}`, `Company: ${enquiry.company || 'Not provided'}`, `Service: ${enquiry.service}`, `Device type: ${enquiry.deviceType || 'Not provided'}`, `Quantity: ${enquiry.quantity ?? 'Not provided'}`, `Rental or purchase: ${enquiry.preference || 'Not specified'}`, `Message: ${enquiry.message}`].join('\n') })
   return true
 }

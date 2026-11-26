@@ -1,6 +1,7 @@
 import Enquiry from '../models/Enquiry.js'
 import ServiceRequest from '../models/ServiceRequest.js'
 import Customer from '../models/Customer.js'
+import User from '../models/User.js'
 import { notifyNewEnquiry } from '../services/email.js'
 import { asyncHandler } from '../utils/asyncHandler.js'
 
@@ -43,6 +44,9 @@ export const getEnquiry = asyncHandler(async (req, res) => {
   res.json({ item })
 })
 export const updateEnquiry = asyncHandler(async (req, res) => {
+  if (req.body.assignedTo && !await User.exists({ _id: req.body.assignedTo, active: true })) {
+    return res.status(400).json({ message: 'The selected team member is unavailable.' })
+  }
   const item = await Enquiry.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true, runValidators: true }).populate('assignedTo', 'name email')
   if (!item) return res.status(404).json({ message: 'Enquiry not found.' })
   res.json({ item })
