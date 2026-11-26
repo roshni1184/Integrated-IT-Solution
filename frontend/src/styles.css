@@ -54,3 +54,6 @@
 
 /* Keep the requested globe spin visible and centered. */
 .globe-orbit{transform-origin:50% 46%}.globe-orbit-a{animation-duration:9s}.globe-orbit-b{animation-duration:14s}.globe-longitudes{transform-origin:50% 46%;animation:globe-meridian-roll 10s linear infinite}@keyframes globe-meridian-roll{0%{transform:rotate(0deg) scaleX(1)}25%{transform:rotate(90deg) scaleX(.42)}50%{transform:rotate(180deg) scaleX(.12)}75%{transform:rotate(270deg) scaleX(.42)}100%{transform:rotate(360deg) scaleX(1)}}@media(prefers-reduced-motion:reduce){.globe-orbit-a,.globe-orbit-b,.globe-longitudes{animation-duration:26s}.globe-satellite{animation:none}}
+
+/* Rotate the globe surface itself so the land and network visibly turn together. */
+.globe-surface{transform-box:view-box;transform-origin:50% 46%;animation:globe-surface-turn 18s linear infinite}@keyframes globe-surface-turn{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.globe-surface{animation-duration:36s}.globe-orbit-a{animation:globe-orbit-spin 26s linear infinite}.globe-orbit-b{animation:globe-orbit-spin 34s linear infinite reverse}.globe-longitudes{animation:globe-meridian-roll 28s linear infinite}}
