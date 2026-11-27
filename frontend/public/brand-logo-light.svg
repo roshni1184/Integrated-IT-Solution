@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="810" height="220" viewBox="0 0 810 220" fill="none">
+  <defs><linearGradient id="symbol" x1="40" y1="36" x2="258" y2="254" gradientUnits="userSpaceOnUse"><stop stop-color="#2476FF"/><stop offset="1" stop-color="#10BFD0"/></linearGradient></defs>
+  <g transform="translate(2 2) scale(.72)">
+    <rect x="24" y="24" width="252" height="252" rx="58" fill="#F3F7FF"/><rect x="35" y="35" width="230" height="230" rx="49" stroke="#DCE8FA" stroke-width="2"/>
+    <path d="M150 83v134M83 150h134" stroke="url(#symbol)" stroke-width="17" stroke-linecap="round"/><path d="M150 104c-25 0-46 21-46 46s21 46 46 46 46-21 46-46-21-46-46-46Z" stroke="#102345" stroke-width="11"/>
+    <circle cx="150" cy="54" r="13" fill="#2678FF"/><circle cx="246" cy="150" r="13" fill="#19BFCF"/><circle cx="150" cy="246" r="13" fill="#19BFCF"/><circle cx="54" cy="150" r="13" fill="#2678FF"/><circle cx="150" cy="150" r="18" fill="#102345"/><path d="M144 141h12v18h-12z" fill="#fff"/>
+  </g>
+  <text x="226" y="96" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800" letter-spacing="2">INTEGRATED</text>
+  <path d="M229 116h420" stroke="#ffffff30" stroke-width="1.5"/>
+  <text x="230" y="155" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="5"><tspan fill="#59A0FF">IT</tspan><tspan fill="#B7C4D8">  SOLUTION</tspan></text>
+</svg>

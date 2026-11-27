@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Search, Network, ShieldCheck, MonitorCog, Laptop, Headphones, Building2, HeartPulse, GraduationCap, Factory, Landmark, ShoppingBag, Check, Mail, Phone, MapPin, Cable, Sparkles, Workflow, Server } from 'lucide-react'
-import { categories, industries, EnquiryForm } from './App.jsx'
+import { ArrowRight, ArrowUpRight, Search, Network, ShieldCheck, MonitorCog, Laptop, Headphones, Building2, HeartPulse, GraduationCap, Factory, Landmark, ShoppingBag, Check, Mail, Phone, MapPin, Sparkles, Workflow, Server } from 'lucide-react'
+import { Brand, categories, industries, EnquiryForm } from './App.jsx'
 import { Header } from './ServicePage.jsx'
 import { serviceSlug } from './utils/serviceSlug.js'
 
@@ -20,7 +20,7 @@ const pageCopy = {
 }
 
 export function PageFooter() {
-  return <footer className="site-footer"><div className="wrap"><div className="footer-main"><div className="footer-brand"><a className="brand brand-light" href="/"><span className="brand-icon"><Cable size={21}/></span><span><b>INTEGRATED</b><small>IT SOLUTION</small></span></a><p>One Company, All IT Solutions<br/>Your Technology Partner.</p></div><div className="footer-col"><small>EXPLORE</small><a href="/about">About us</a><a href="/services">Services</a><a href="/industries">Industries</a><a href="/contact">Contact</a></div><div className="footer-col"><small>OUR SERVICES</small><a href="/services">Networking & infrastructure</a><a href="/services">Cyber security & support</a><a href="/services">Laptop & desktop solutions</a><a href="/services">IT hardware & accessories</a></div><div className="footer-contact"><small>GET IN TOUCH</small><p>Have a project in mind?<br/>We’re ready to listen.</p><a className="footer-email" href="/contact">Contact our team <ArrowUpRight size={14}/></a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Integrated IT Solution. All rights reserved.</span><span>One Company, All IT Solutions <span className="footer-blue">●</span></span><a href="#top" onClick={e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})}}>Back to top ↑</a></div></div></footer>
+  return <footer className="site-footer"><div className="wrap"><div className="footer-main"><div className="footer-brand"><Brand light/><p>One Company, All IT Solutions<br/>Your Technology Partner.</p></div><div className="footer-col"><small>EXPLORE</small><a href="/about">About us</a><a href="/services">Services</a><a href="/industries">Industries</a><a href="/contact">Contact</a></div><div className="footer-col"><small>OUR SERVICES</small><a href="/services">Networking & infrastructure</a><a href="/services">Cyber security & support</a><a href="/services">Laptop & desktop solutions</a><a href="/services">IT hardware & accessories</a></div><div className="footer-contact"><small>GET IN TOUCH</small><p>Have a project in mind?<br/>We’re ready to listen.</p><a className="footer-email" href="/contact">Contact our team <ArrowUpRight size={14}/></a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Integrated IT Solution. All rights reserved.</span><span>One Company, All IT Solutions <span className="footer-blue">●</span></span><a href="#top" onClick={e=>{e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})}}>Back to top ↑</a></div></div></footer>
 }
 
 function PageHero({ page, info }) {
