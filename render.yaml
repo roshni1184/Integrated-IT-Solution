@@ -11,6 +11,8 @@ services:
         value: production
       - key: MONGODB_URI
         sync: false
+      - key: MONGODB_DB_NAME
+        value: integrated-it-solution
       - key: JWT_SECRET
         sync: false
       - key: CLIENT_ORIGIN
