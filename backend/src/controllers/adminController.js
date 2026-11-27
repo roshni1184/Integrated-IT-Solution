@@ -1,4 +1,5 @@
 import Customer from '../models/Customer.js'
+import Enquiry from '../models/Enquiry.js'
 import ServiceRequest from '../models/ServiceRequest.js'
 import { asyncHandler } from '../utils/asyncHandler.js'
 import { createEnquiryRecord } from '../services/enquiryRecord.js'
@@ -14,6 +15,16 @@ export const listCustomers = asyncHandler(async (req, res) => {
   res.json({ items, pagination: { page, limit, total, pages: Math.ceil(total / limit) } })
 })
 export const createCustomer = asyncHandler(async (req, res) => res.status(201).json({ item: await Customer.create(req.body) }))
+export const getCustomer = asyncHandler(async (req, res) => {
+  const item = await Customer.findById(req.params.id).lean()
+  if (!item) return res.status(404).json({ message: 'Customer not found.' })
+  const identity = [item.email && { email: item.email }, item.phone && { phone: item.phone }].filter(Boolean)
+  const [enquiries, requests] = await Promise.all([
+    identity.length ? Enquiry.find({ $or: identity }).sort({ createdAt: -1 }).limit(100).lean() : [],
+    ServiceRequest.find({ customer: item._id }).populate('enquiry').sort({ createdAt: -1 }).limit(100).lean(),
+  ])
+  res.json({ item, enquiries, requests })
+})
 export const listServiceRequests = asyncHandler(async (req, res) => {
   const { page, limit, status, requestType } = res.locals.query
   const filter = {}; if (status) filter.status = status; if (requestType) filter.requestType = requestType

@@ -13,9 +13,10 @@ export const createEnquiry = asyncHandler(async (req, res) => {
 function buildEnquiryFilter(query) {
   const filter = {}
   if (query.status) filter.status = query.status
+  if (query.source) filter.source = query.source
   if (query.service) filter.service = query.service
   if (query.enquiryType) filter.enquiryType = query.enquiryType
-  if (query.from || query.to) filter.createdAt = { ...(query.from && { $gte: new Date(query.from) }), ...(query.to && { $lte: new Date(query.to) }) }
+  if (query.from || query.to) filter.createdAt = { ...(query.from && { $gte: new Date(`${query.from}T00:00:00.000Z`) }), ...(query.to && { $lte: new Date(`${query.to}T23:59:59.999Z`) }) }
   if (query.search) {
     const safe = query.search.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     filter.$or = ['name', 'email', 'phone', 'service', 'company'].map((field) => ({ [field]: { $regex: safe, $options: 'i' } }))
@@ -48,7 +49,7 @@ export const addEnquiryNote = asyncHandler(async (req, res) => {
 })
 export const exportEnquiries = asyncHandler(async (req, res) => {
   const items = await Enquiry.find(buildEnquiryFilter(res.locals.query)).sort({ createdAt: -1 }).limit(10000).lean()
-  const fields = ['createdAt', 'name', 'email', 'phone', 'company', 'service', 'enquiryType', 'status', 'deviceType', 'quantity', 'preference', 'message']
+  const fields = ['createdAt', 'name', 'email', 'phone', 'company', 'service', 'enquiryType', 'source', 'status', 'deviceType', 'deviceConfiguration', 'rentalDuration', 'location', 'quantity', 'preference', 'message']
   const escape = (value) => {
     const text = String(value ?? '')
     const safe = /^[\u0000-\u0020]*[=+\-@]/.test(text) ? `'${text}` : text
@@ -60,13 +61,16 @@ export const exportEnquiries = asyncHandler(async (req, res) => {
 
 export const dashboardAnalytics = asyncHandler(async (req, res) => {
   const now = new Date(); const monthStart = new Date(now.getFullYear(), now.getMonth() - 11, 1)
-  const [statusCounts, serviceCounts, daily, monthly, total] = await Promise.all([
+  const followUpWindow = { followUpAt: { $ne: null, $lte: new Date(now.getTime() + 7 * 86400000) }, status: { $nin: ['converted', 'rejected'] } }
+  const [statusCounts, serviceCounts, daily, monthly, total, followUpsCount, upcomingFollowUps] = await Promise.all([
     Enquiry.aggregate([{ $group: { _id: '$status', count: { $sum: 1 } } }]),
     Enquiry.aggregate([{ $group: { _id: '$service', count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 12 }]),
     Enquiry.aggregate([{ $match: { createdAt: { $gte: new Date(now.getTime() - 29 * 86400000) } } }, { $group: { _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } }, count: { $sum: 1 } } }, { $sort: { _id: 1 } }]),
     Enquiry.aggregate([{ $match: { createdAt: { $gte: monthStart } } }, { $group: { _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } }, count: { $sum: 1 } } }, { $sort: { _id: 1 } }]),
     Enquiry.countDocuments(),
+    Enquiry.countDocuments(followUpWindow),
+    Enquiry.find(followUpWindow).sort({ followUpAt: 1 }).limit(8).select('name service status followUpAt').lean(),
   ])
   const byStatus = Object.fromEntries(statusCounts.map(({ _id, count }) => [_id, count]))
-  res.json({ total, byStatus: { new: 0, contacted: 0, in_progress: 0, converted: 0, rejected: 0, ...byStatus }, byService: serviceCounts.map(({ _id, count }) => ({ service: _id, count })), daily, monthly })
+  res.json({ total, byStatus: { new: 0, contacted: 0, in_progress: 0, converted: 0, rejected: 0, ...byStatus }, byService: serviceCounts.map(({ _id, count }) => ({ service: _id, count })), daily, monthly, followUpsCount, upcomingFollowUps })
 })

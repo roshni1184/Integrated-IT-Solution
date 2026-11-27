@@ -9,10 +9,11 @@ export const enquiryQuerySchema = z.object({
   ...pagination,
   search: z.string().trim().max(120).optional(),
   status: z.enum(['new', 'contacted', 'in_progress', 'converted', 'rejected']).optional(),
+  source: z.enum(['website', 'whatsapp', 'phone', 'referral', 'other']).optional(),
   service: z.string().trim().min(1).max(120).optional(),
   enquiryType: z.enum(['contact', 'quote']).optional(),
-  from: z.string().datetime().optional(),
-  to: z.string().datetime().optional(),
+  from: z.string().date().optional(),
+  to: z.string().date().optional(),
 }).strict().refine(({ from, to }) => !from || !to || Date.parse(from) <= Date.parse(to), {
   path: ['to'],
   message: 'End date must be after the start date.',

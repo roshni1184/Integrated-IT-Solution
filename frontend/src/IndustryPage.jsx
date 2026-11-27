@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ShieldCheck, Workflow } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { industries } from './App.jsx'
@@ -17,6 +18,18 @@ export default function IndustryPage() {
   const slug = window.location.pathname.split('/').filter(Boolean)[1]
   const industry = industries.find(item => item.slug === slug)
   const detail = industryDetails[slug]
+  useEffect(() => {
+    if (!industry || !detail) return
+    const previousTitle = document.title
+    const description = document.querySelector('meta[name="description"]')
+    const previousDescription = description?.content
+    document.title = `${industry.title} IT Solutions | Integrated IT Solution`
+    description?.setAttribute('content', detail.intro)
+    return () => {
+      document.title = previousTitle
+      if (description && previousDescription) description.setAttribute('content', previousDescription)
+    }
+  }, [industry, detail])
   if (!industry || !detail) return <><Header/><main className="public-not-found wrap"><span className="eyebrow">INDUSTRY NOT FOUND</span><h1>We couldn’t find that page.</h1><a href="/industries" className="button button-primary">Browse industries <ArrowRight size={16}/></a></main><PageFooter/></>
   const Icon = industry.icon
   return <><Header/><main className="industry-detail-page">

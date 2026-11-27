@@ -36,7 +36,7 @@ export function EnquiryForm({ quote = false, compact = false, serviceOptions = c
     event.preventDefault(); setState('sending')
     const form = event.currentTarget
     const data = Object.fromEntries(new FormData(form).entries())
-    const api = import.meta.env.VITE_API_URL
+    const api = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000/api' : '')
     if (!api) { setState('unconfigured'); return }
     try {
       const response = await fetch(`${api}/enquiries`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, enquiryType: quote ? 'quote' : 'contact' }) })
@@ -45,6 +45,7 @@ export function EnquiryForm({ quote = false, compact = false, serviceOptions = c
     } catch { setState('error') }
   }
   return <form className={`enquiry-form ${compact ? 'compact-form' : ''}`} onSubmit={submit}>
+    <input type="hidden" name="source" value="website" />
     <div className="form-grid">
       <label>Your name<input name="name" autoComplete="name" placeholder="Full name" required minLength="2" /></label>
       <label>Work email<input name="email" type="email" autoComplete="email" placeholder="you@company.com" required /></label>
@@ -55,6 +56,9 @@ export function EnquiryForm({ quote = false, compact = false, serviceOptions = c
         <label>Device type<select name="deviceType" defaultValue=""><option value="">Not applicable</option><option>Laptop</option><option>Desktop</option><option>Accessories</option><option>Other</option></select></label>
         <label>Quantity<input name="quantity" type="number" min="1" placeholder="e.g. 10" /></label>
         <label className="full-field">Rental or purchase<select name="preference" defaultValue=""><option value="">Choose if relevant</option><option>Rental</option><option>Purchase</option><option>Sale / trade-in</option><option>Not applicable</option></select></label>
+        <label className="full-field">Preferred configuration <span className="optional">Optional</span><input name="deviceConfiguration" maxLength="500" placeholder="e.g. 16 GB RAM, 512 GB SSD" /></label>
+        <label>Rental duration <span className="optional">Optional</span><input name="rentalDuration" maxLength="120" placeholder="e.g. 3 months" /></label>
+        <label>Location <span className="optional">Optional</span><input name="location" maxLength="160" autoComplete="address-level2" placeholder="City or service location" /></label>
       </>}
       <label className="full-field">Tell us about your requirements<textarea name="message" rows="4" required minLength="10" placeholder="A little about your project, timing and what you need…" /></label>
     </div>

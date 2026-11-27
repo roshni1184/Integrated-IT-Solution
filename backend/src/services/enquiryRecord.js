@@ -6,27 +6,25 @@ const serviceRequestPreferences = new Set(['Rental', 'Purchase', 'Sale / trade-i
 
 export async function createEnquiryRecord(data) {
   const enquiry = await Enquiry.create(data)
+  const customer = await Customer.findOneAndUpdate(
+    { email: data.email },
+    { $set: { name: data.name, email: data.email, phone: data.phone, company: data.company } },
+    { new: true, upsert: true, setDefaultsOnInsert: true },
+  )
   if (!serviceRequestPreferences.has(data.preference)) return enquiry
-
-  let customer = null
-  if (data.email || data.phone) {
-    const identity = data.email ? { email: data.email } : { phone: data.phone }
-    customer = await Customer.findOneAndUpdate(
-      identity,
-      { $set: { name: data.name, email: data.email, phone: data.phone, company: data.company } },
-      { new: true, upsert: true, setDefaultsOnInsert: true },
-    )
-  }
 
   await ServiceRequest.create({
     enquiry: enquiry.id,
-    customer: customer?.id ?? null,
+    customer: customer.id,
     requestType: data.preference === 'Rental'
       ? 'rental'
       : data.preference === 'Sale / trade-in'
         ? 'sale_trade_in'
         : 'purchase',
     deviceType: data.deviceType,
+    deviceConfiguration: data.deviceConfiguration,
+    rentalDuration: data.rentalDuration,
+    location: data.location,
     quantity: data.quantity,
     requirements: data.message,
   })
