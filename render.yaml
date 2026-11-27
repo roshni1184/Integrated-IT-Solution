@@ -2,6 +2,8 @@ services:
   - type: web
     name: integrated-it-solution-api
     runtime: node
+    plan: free
+    region: singapore
     rootDir: backend
     buildCommand: npm ci
     startCommand: npm start
@@ -16,18 +18,4 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: CLIENT_ORIGIN
-        sync: false
-      - key: SMTP_HOST
-        sync: false
-      - key: SMTP_PORT
-        value: "587"
-      - key: SMTP_SECURE
-        value: "false"
-      - key: SMTP_USER
-        sync: false
-      - key: SMTP_PASSWORD
-        sync: false
-      - key: MAIL_FROM
-        sync: false
-      - key: ENQUIRY_NOTIFICATION_EMAIL
         sync: false
