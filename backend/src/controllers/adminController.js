@@ -1,10 +1,10 @@
 import Customer from '../models/Customer.js'
 import ServiceRequest from '../models/ServiceRequest.js'
-import Enquiry from '../models/Enquiry.js'
 import { asyncHandler } from '../utils/asyncHandler.js'
+import { createEnquiryRecord } from '../services/enquiryRecord.js'
 
 export const createManualEnquiry = asyncHandler(async (req, res) => {
-  const item = await Enquiry.create(req.body)
+  const item = await createEnquiryRecord(req.body)
   res.status(201).json({ item })
 })
 export const listCustomers = asyncHandler(async (req, res) => {

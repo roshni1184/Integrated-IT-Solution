@@ -47,7 +47,7 @@ Returns the authenticated user's minimal profile.
 
 - `GET /enquiries`: pagination (`page` 1–10,000; `limit` 1–100), search (`search`, max 120 characters), `status`, `service`, `enquiryType`, and ISO date filters `from` / `to`. Unknown or invalid query parameters return `400`.
 - `GET /enquiries/export.csv`: exports up to 10,000 matching rows with the same filters.
-- `POST /enquiries/manual`: admin-only; accepts the public enquiry body.
+- `POST /enquiries/manual`: admin-only; accepts the public enquiry body and creates linked customer/service-request records when rental or purchase details are supplied.
 - `GET /enquiries/:id`: full enquiry and notes.
 - `PATCH /enquiries/:id`: update `status`, `followUpAt` (ISO date or null), and/or `assignedTo` (active user ID or null). Assignments to missing or inactive users are rejected.
 - `POST /enquiries/:id/notes`: `{ "text": "Followed up by email" }`.

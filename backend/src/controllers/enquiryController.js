@@ -1,20 +1,11 @@
 import Enquiry from '../models/Enquiry.js'
-import ServiceRequest from '../models/ServiceRequest.js'
-import Customer from '../models/Customer.js'
 import User from '../models/User.js'
 import { notifyNewEnquiry } from '../services/email.js'
+import { createEnquiryRecord } from '../services/enquiryRecord.js'
 import { asyncHandler } from '../utils/asyncHandler.js'
 
 export const createEnquiry = asyncHandler(async (req, res) => {
-  const data = req.body
-  const enquiry = await Enquiry.create(data)
-  if (['Rental', 'Purchase', 'Sale / trade-in'].includes(data.preference)) {
-    let customer = null
-    if (data.email || data.phone) {
-      customer = await Customer.findOneAndUpdate({ $or: [{ email: data.email || '__none__' }, { phone: data.phone }] }, { $set: { name: data.name, email: data.email, phone: data.phone, company: data.company } }, { new: true, upsert: true, setDefaultsOnInsert: true })
-    }
-    await ServiceRequest.create({ enquiry: enquiry.id, customer: customer?.id ?? null, requestType: data.preference === 'Rental' ? 'rental' : 'purchase', deviceType: data.deviceType, quantity: data.quantity, requirements: data.message })
-  }
+  const enquiry = await createEnquiryRecord(req.body)
   try { await notifyNewEnquiry(enquiry) } catch (error) { console.error('Enquiry notification email failed:', error.message) }
   res.status(201).json({ message: 'Enquiry received successfully.', id: enquiry.id })
 })
