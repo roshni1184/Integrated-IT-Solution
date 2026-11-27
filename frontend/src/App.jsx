@@ -32,6 +32,7 @@ function SectionTitle({ eyebrow, title, text, centered = false }) { return <div 
 
 export function EnquiryForm({ quote = false, compact = false, serviceOptions = categories.flatMap(c => c.services) }) {
   const [state, setState] = useState('idle')
+  const [whatsappUrl, setWhatsappUrl] = useState('')
   const submit = async (event) => {
     event.preventDefault(); setState('sending')
     const form = event.currentTarget
@@ -41,6 +42,22 @@ export function EnquiryForm({ quote = false, compact = false, serviceOptions = c
     try {
       const response = await fetch(`${api}/enquiries`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, enquiryType: quote ? 'quote' : 'contact' }) })
       if (!response.ok) throw new Error('Submission failed')
+      const message = [
+        `New ${quote ? 'quote request' : 'enquiry'} — Integrated IT Solution`,
+        `Name: ${data.name}`,
+        `Phone: ${data.phone}`,
+        `Email: ${data.email}`,
+        data.company && `Company: ${data.company}`,
+        `Service: ${data.service}`,
+        quote && data.deviceType && `Device: ${data.deviceType}`,
+        quote && data.quantity && `Quantity: ${data.quantity}`,
+        quote && data.preference && `Preference: ${data.preference}`,
+        quote && data.deviceConfiguration && `Configuration: ${data.deviceConfiguration}`,
+        quote && data.rentalDuration && `Duration: ${data.rentalDuration}`,
+        quote && data.location && `Location: ${data.location}`,
+        `Requirements: ${data.message}`,
+      ].filter(Boolean).join('\n')
+      setWhatsappUrl(`https://wa.me/919162986496?text=${encodeURIComponent(message)}`)
       form.reset(); setState('success')
     } catch { setState('error') }
   }
@@ -63,7 +80,7 @@ export function EnquiryForm({ quote = false, compact = false, serviceOptions = c
       <label className="full-field">Tell us about your requirements<textarea name="message" rows="4" required minLength="10" placeholder="A little about your project, timing and what you need…" /></label>
     </div>
     <div className="form-bottom"><button className="button button-primary" type="submit" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : quote ? 'Request a quote' : 'Send enquiry'} <ArrowRight size={17} /></button><span className="form-privacy"><ShieldCheck size={14} /> Your details stay private.</span></div>
-    {state === 'success' && <p className="form-message success" role="status">Thanks for reaching out. Your enquiry has been sent.</p>}
+    {state === 'success' && <div className="form-message success" role="status"><p>Thanks for reaching out. Your enquiry has been received.</p><a className="button button-primary" href={whatsappUrl} target="_blank" rel="noreferrer">Also send on WhatsApp <ArrowUpRight size={16}/></a><small>This opens WhatsApp with your enquiry ready to send.</small></div>}
     {state === 'unconfigured' && <p className="form-message" role="status">The enquiry service is not connected yet. Please configure the backend to accept submissions.</p>}
     {state === 'error' && <p className="form-message error" role="alert">We couldn't send your enquiry. Please try again later.</p>}
   </form>
