@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
+import mongoose from 'mongoose'
 import { rateLimit } from 'express-rate-limit'
 import { env } from './config/env.js'
 import { authRouter } from './routes/authRoutes.js'
@@ -20,6 +21,10 @@ app.use('/api/auth/login', rateLimit({ windowMs: 15 * 60 * 1000, limit: 10, stan
 app.use('/api/enquiries', rateLimit({ windowMs: 15 * 60 * 1000, limit: 8, standardHeaders: 'draft-8', legacyHeaders: false, message: { message: 'Too many enquiries from this network. Please try again later.' }, skip: (req) => req.method !== 'POST' || req.path !== '/' }))
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'integrated-it-solution-api' }))
+app.get('/api/ready', (req, res) => {
+  const ready = mongoose.connection.readyState === 1
+  res.status(ready ? 200 : 503).json({ status: ready ? 'ready' : 'unavailable', service: 'integrated-it-solution-api' })
+})
 app.use('/api/auth', authRouter)
 app.use('/api/enquiries', enquiryRouter)
 app.use('/api/services', serviceRouter)

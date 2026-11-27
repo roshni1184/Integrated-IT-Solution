@@ -8,6 +8,10 @@ All endpoints are prefixed with `/api`. JSON bodies use `Content-Type: applicati
 
 Returns `{ "status": "ok", "service": "integrated-it-solution-api" }`.
 
+### `GET /ready`
+
+Returns HTTP `200` while MongoDB is connected, or HTTP `503` when the API process is running but MongoDB is unavailable. Use this endpoint for deployment readiness checks.
+
 ### `POST /enquiries`
 
 Accepts `name`, `email`, `phone`, `company` (optional), `service`, `enquiryType` (`contact` or `quote`), `message`, and optional device fields `deviceType`, `quantity`, and `preference`. Name is 2–120 characters; message is 10–5000 characters. A valid request creates an enquiry and returns `201` with its ID. Rental and purchase preferences also create a service request and associate a customer record. SMTP notification is sent when configured.
