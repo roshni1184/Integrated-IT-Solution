@@ -14,7 +14,7 @@ Returns HTTP `200` while MongoDB is connected, or HTTP `503` when the API proces
 
 ### `POST /enquiries`
 
-Accepts `name`, `email`, `phone`, `company` (optional), `service`, `enquiryType` (`contact` or `quote`), `message`, and optional `source` (`website`, `whatsapp`, `phone`, `referral`, or `other`). Quote requests can include `deviceType`, `quantity`, `preference`, `deviceConfiguration`, `rentalDuration`, and `location`. Name is 2–120 characters; message is 10–5000 characters. A valid request creates an enquiry and customer record, and returns `201` with its ID. Rental, purchase, and sale/trade-in preferences also create a linked service request. SMTP notification is sent when configured.
+Accepts `name`, `email`, `phone`, `company` (optional), `service`, `enquiryType` (`contact` or `quote`), `message`, and optional `source` (`website`, `whatsapp`, `phone`, `referral`, or `other`). Quote requests can include `deviceType`, `quantity`, `preference`, `deviceConfiguration`, `rentalDuration`, and `location`. Name is 2–120 characters; message is 10–5000 characters. A valid request creates an enquiry and customer record, and returns `201` with its ID. Quote requests create a linked service request; rental, purchase, and sale/trade-in preferences set its corresponding device request type. SMTP notification is sent when configured.
 
 Example:
 

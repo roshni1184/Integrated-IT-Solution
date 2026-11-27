@@ -11,7 +11,7 @@ export async function createEnquiryRecord(data) {
     { $set: { name: data.name, email: data.email, phone: data.phone, company: data.company } },
     { new: true, upsert: true, setDefaultsOnInsert: true },
   )
-  if (!serviceRequestPreferences.has(data.preference)) return enquiry
+  if (!serviceRequestPreferences.has(data.preference) && data.enquiryType !== 'quote') return enquiry
 
   await ServiceRequest.create({
     enquiry: enquiry.id,
@@ -20,7 +20,9 @@ export async function createEnquiryRecord(data) {
       ? 'rental'
       : data.preference === 'Sale / trade-in'
         ? 'sale_trade_in'
-        : 'purchase',
+        : data.preference === 'Purchase'
+          ? 'purchase'
+          : 'service',
     deviceType: data.deviceType,
     deviceConfiguration: data.deviceConfiguration,
     rentalDuration: data.rentalDuration,
