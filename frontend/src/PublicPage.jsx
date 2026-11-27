@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight, Search, Network, ShieldCheck, MonitorCog, Lap
 import { Brand, categories, industries, EnquiryForm } from './App.jsx'
 import { Header } from './ServicePage.jsx'
 import { serviceSlug } from './utils/serviceSlug.js'
+import { API_URL } from './api.js'
 
 const pageInfo = {
   about: { eyebrow: 'ABOUT INTEGRATED IT SOLUTION', title: <>One partner.<br/><em>Connected IT.</em></>, intro: 'We bring networking, cyber security, IT infrastructure, devices and ongoing support together for businesses.', image: '1181406', focus: 'A practical approach to business technology' },
@@ -32,9 +33,7 @@ function ServiceDirectory() {
   const [activeCategory, setActiveCategory] = useState('All services')
   const [catalog, setCatalog] = useState(categories)
   useEffect(()=>{
-    const api=import.meta.env.VITE_API_URL
-    if(!api)return
-    fetch(`${api}/services`).then(res=>res.ok?res.json():null).then(data=>{
+    fetch(`${API_URL}/services`).then(res=>res.ok?res.json():null).then(data=>{
       if(!data?.items?.length)return
       const grouped=new Map()
       for(const item of data.items)grouped.set(item.category,[...(grouped.get(item.category)||[]),item.name])

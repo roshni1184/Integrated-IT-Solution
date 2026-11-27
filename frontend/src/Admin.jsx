@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Activity, ArrowDownToLine, ArrowLeft, ArrowRight, Bell, BriefcaseBusiness, Building2, Check, ChevronLeft, ChevronRight, CircleUserRound, ClipboardList, Gauge, Laptop, Layers3, LogOut, Plus, Search, Settings2, ShieldCheck, Trash2, X } from 'lucide-react'
+import { API_URL } from './api.js'
 
-const API = `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}`
+const API = API_URL
 const STATUSES = ['new', 'contacted', 'in_progress', 'converted', 'rejected']
 const EMPTY_LEAD = { name: '', email: '', phone: '', company: '', service: '', enquiryType: 'contact', source: 'phone', message: '' }
 

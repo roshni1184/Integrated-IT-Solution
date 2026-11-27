@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDown, ArrowRight, ArrowUpRight, Menu, X, Network, ShieldCheck, MonitorCog, Laptop, Headphones, Server, Check, ChevronDown, Send, Workflow, Building2, HeartPulse, GraduationCap, Factory, Landmark, ShoppingBag, Quote, Mail, Phone, MapPin, Globe2, Sparkles, CircleHelp, Search } from 'lucide-react'
 import { serviceSlug } from './utils/serviceSlug.js'
+import { API_URL } from './api.js'
 
 export const categories = [
   { icon: Network, number: '01', title: 'Networking & IT Infrastructure', description: 'Build a connected, reliable foundation for the way your business works.', services: ['Wi-Fi Installation', 'Router & Switch Configuration', 'Server Installation', 'Office Networking Solutions', 'Networking Solutions'] },
@@ -37,8 +38,7 @@ export function EnquiryForm({ quote = false, compact = false, serviceOptions = c
     event.preventDefault(); setState('sending')
     const form = event.currentTarget
     const data = Object.fromEntries(new FormData(form).entries())
-    const api = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5000/api' : '')
-    if (!api) { setState('unconfigured'); return }
+    const api = API_URL
     try {
       const response = await fetch(`${api}/enquiries`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, enquiryType: quote ? 'quote' : 'contact' }) })
       if (!response.ok) throw new Error('Submission failed')
@@ -94,9 +94,7 @@ function App() {
   const [activeServiceFilter, setActiveServiceFilter] = useState('All services')
   const [serviceCatalog, setServiceCatalog] = useState(categories)
   useEffect(() => {
-    const api = import.meta.env.VITE_API_URL
-    if (!api) return
-    fetch(`${api}/services`).then(response => response.ok ? response.json() : null).then(data => {
+    fetch(`${API_URL}/services`).then(response => response.ok ? response.json() : null).then(data => {
       if (!data?.items?.length) return
       const grouped = new Map()
       for (const item of data.items) grouped.set(item.category, [...(grouped.get(item.category) || []), item.name])

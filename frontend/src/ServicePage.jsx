@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronDown, Network, ShieldCheck, MonitorCog, Laptop, Headphones, Menu, X, MoveUpRight, Sparkles } from 'lucide-react'
 import { Brand, categories } from './App.jsx'
 import { serviceSlug } from './utils/serviceSlug.js'
+import { API_URL } from './api.js'
 
 const serviceHeroImages = {
   'Wi-Fi Installation': '3182812',
@@ -90,9 +91,7 @@ export default function ServicePage() {
   const details=current?(copy[current.name]||['Technology support shaped around your business.',`Discuss ${current.name.toLowerCase()} requirements and find a practical next step for your organization.`,['Understand your needs','Explore suitable options','Plan next steps']]):null
   useEffect(()=>{
     if(staticService){setLoading(false);return}
-    const api=import.meta.env.VITE_API_URL
-    if(!api){setLoading(false);return}
-    fetch(`${api}/services/${encodeURIComponent(slug)}`).then(response=>response.ok?response.json():null).then(data=>setDynamicService(data?.item||null)).catch(()=>{}).finally(()=>setLoading(false))
+    fetch(`${API_URL}/services/${encodeURIComponent(slug)}`).then(response=>response.ok?response.json():null).then(data=>setDynamicService(data?.item||null)).catch(()=>{}).finally(()=>setLoading(false))
   },[slug,staticService])
   useEffect(()=>{
     if(!current||!details)return
