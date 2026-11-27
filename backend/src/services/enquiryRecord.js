@@ -21,7 +21,11 @@ export async function createEnquiryRecord(data) {
   await ServiceRequest.create({
     enquiry: enquiry.id,
     customer: customer?.id ?? null,
-    requestType: data.preference === 'Rental' ? 'rental' : 'purchase',
+    requestType: data.preference === 'Rental'
+      ? 'rental'
+      : data.preference === 'Sale / trade-in'
+        ? 'sale_trade_in'
+        : 'purchase',
     deviceType: data.deviceType,
     quantity: data.quantity,
     requirements: data.message,

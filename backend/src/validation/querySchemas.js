@@ -26,5 +26,5 @@ export const customerQuerySchema = z.object({
 export const serviceRequestQuerySchema = z.object({
   ...pagination,
   status: z.enum(['new', 'reviewing', 'fulfilled', 'cancelled']).optional(),
-  requestType: z.enum(['rental', 'purchase', 'service']).optional(),
+  requestType: z.enum(['rental', 'purchase', 'sale_trade_in', 'service']).optional(),
 }).strict()

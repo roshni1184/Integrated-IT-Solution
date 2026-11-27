@@ -61,7 +61,7 @@ Returns the authenticated user's minimal profile.
 - `GET /dashboard/analytics`: status totals, totals by service, daily enquiry counts, and monthly counts.
 - `GET /dashboard/customers`: paginated list with optional `search` (max 120 characters); invalid or unknown query parameters return `400`.
 - `POST /dashboard/customers`: create a customer with `name` and optional `email`, `phone`, `company`, `notes`.
-- `GET /dashboard/service-requests`: paginated requests with optional `status` and `requestType` filters; invalid or unknown query parameters return `400`.
+- `GET /dashboard/service-requests`: paginated requests with optional `status` and `requestType` filters (`rental`, `purchase`, `sale_trade_in`, or `service`); invalid or unknown query parameters return `400`. Enquiries with the `Sale / trade-in` preference are saved as `sale_trade_in` requests.
 - `PATCH /dashboard/service-requests/:id`: change `status` to `new`, `reviewing`, `fulfilled`, or `cancelled`.
 - `POST /services`, `PATCH /services/:id`, `DELETE /services/:id`: admin-only service catalog management.
 - `GET /services/manage`: admin-only complete service list, including inactive records.
