@@ -17,7 +17,7 @@ async function request(path, { token, ...options } = {}) {
 }
 function dateLabel(value) { return value ? new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(value)) : '—' }
 function Status({ value }) { return <span className={`status-pill status-${value}`}>{value?.replace('_', ' ') || 'new'}</span> }
-function Brand() { return <a className="admin-brand" href="/" aria-label="Return to website"><span><Layers3 size={19}/></span><b>INTEGRATED <small>IT SOLUTION</small></b></a> }
+function Brand() { return <a className="admin-brand" href="/" aria-label="Return to website"><img className="admin-brand-logo" src="/brand-logo-user.jpg" alt="Integrated IT Solution" /></a> }
 function Login({ onLogin }) {
   const [form, setForm] = useState({ email: '', password: '' }); const [error, setError] = useState(''); const [busy, setBusy] = useState(false)
   async function submit(event) { event.preventDefault(); setBusy(true); setError(''); try { const data = await request('/auth/login', { method: 'POST', body: JSON.stringify(form) }); sessionStorage.setItem('iis-admin-token', data.token); onLogin(data.user) } catch (e) { setError(e.message) } finally { setBusy(false) } }

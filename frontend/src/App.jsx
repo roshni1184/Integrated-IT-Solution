@@ -27,7 +27,7 @@ const faqs = [
 ]
 
 function RotatingGlobeSurface() { const surfaceRef = useRef(null); useEffect(() => { let frameId; let startTime; const rotate = (time) => { if (!startTime) startTime = time; surfaceRef.current?.style.setProperty('--globe-angle', `${((time - startTime) / 6000) * 360}deg`); frameId = requestAnimationFrame(rotate) }; frameId = requestAnimationFrame(rotate); return () => cancelAnimationFrame(frameId) }, []); return <div className="globe-css-surface" aria-hidden="true" ref={surfaceRef} /> }
-export function Brand({ light = false }) { return <a className={`brand ${light ? 'brand-light' : ''}`} href="/" aria-label="Integrated IT Solution home"><img className="brand-logo" src={light ? '/brand-logo-light.svg' : '/brand-logo.svg'} alt="" /></a> }
+export function Brand({ light = false }) { return <a className={`brand ${light ? 'brand-light' : ''}`} href="/" aria-label="Integrated IT Solution home"><img className="brand-logo" src="/brand-logo-user.jpg" alt="" /></a> }
 function Reveal({ children, className = '', delay = 0, direction }) { const from = direction || (Math.round(delay * 1000 / 35) % 2 ? 'right' : 'left'); const x = from === 'left' ? -42 : 42; return <motion.div className={className} initial={{ opacity: 0, x, y: 14, scale: .975, filter: 'blur(5px)' }} whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, filter: 'blur(0px)' }} viewport={{ once: true, margin: '-55px' }} transition={{ duration: .78, delay, ease: [.2, .78, .22, 1] }}>{children}</motion.div> }
 function SectionTitle({ eyebrow, title, text, centered = false }) { return <div className={`section-title ${centered ? 'center' : ''}`}><span className="eyebrow">{eyebrow}</span><h2>{title}</h2>{text && <p>{text}</p>}</div> }
 
